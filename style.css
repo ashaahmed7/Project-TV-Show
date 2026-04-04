@@ -1,37 +1,192 @@
+:root {
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.06);
+  --text: #e8eefc;
+  --muted: rgba(232, 238, 252, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #7aa7ff;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 20px;
-  background-color: #f4f4f4;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial;
+  color: var(--text);
+  background:
+    radial-gradient(
+      1000px 600px at 15% -10%,
+      rgba(122, 167, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      900px 700px at 85% 0%,
+      rgba(134, 239, 172, 0.12),
+      transparent
+    ),
+    var(--bg);
 }
 
-h1 {
-  text-align: center;
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-#root {
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 26px 0 14px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+main {
+  padding: 18px 0 28px;
+}
+
+.episode-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
 }
 
-.episode {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.episode-card {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow: var(--shadow);
 }
 
-.episode img {
+@media (max-width: 640px) {
+  .episode-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.thumb-wrap {
+  background: rgba(0, 0, 0, 0.2);
+  min-height: 190px;
+}
+
+.thumb {
   width: 100%;
-  border-radius: 8px;
+  height: 100%;
+  min-height: 190px;
+  object-fit: cover;
+  display: block;
 }
 
-.episode h2 {
+.placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 190px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.episode-content {
+  padding: 14px 14px 16px;
+}
+
+.episode-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.badge {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.episode-title {
+  margin: 0;
   font-size: 18px;
-  margin: 10px 0;
 }
 
-.summary {
-  font-size: 14px;
+.episode-submeta {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.episode-summary {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.episode-summary p {
+  margin: 0 0 10px;
+}
+.episode-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.episode-links {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-chip {
+  font-size: 13px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.link-chip:hover {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.site-footer {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.12);
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
 }
