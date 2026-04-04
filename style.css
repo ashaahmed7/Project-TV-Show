@@ -79,19 +79,19 @@ main {
 
 .episode-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
 .episode-card {
-  grid-column: span 12;
-  display: grid;
-  grid-template-columns: 190px 1fr;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--panel);
   box-shadow: var(--shadow);
+  height: 100%;
 }
 
 @media (max-width: 640px) {
@@ -101,14 +101,14 @@ main {
 }
 
 .thumb-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
   background: rgba(0, 0, 0, 0.2);
-  min-height: 190px;
 }
 
 .thumb {
   width: 100%;
   height: 100%;
-  min-height: 190px;
   object-fit: cover;
   display: block;
 }
@@ -122,7 +122,10 @@ main {
 }
 
 .episode-content {
-  padding: 14px 14px 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .episode-meta {
@@ -168,10 +171,8 @@ main {
 }
 
 .episode-links {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin-top: auto;
+  padding-top: 15px;
 }
 
 .link-chip {
@@ -189,10 +190,67 @@ main {
 .site-footer {
   padding: 18px 0;
   border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.8);
   color: var(--muted);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 .muted {
   color: var(--muted);
+}
+
+/* Style for search bar: */
+.search-wrap {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+#episodeSelect,
+#searchInput {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 14px;
+}
+
+#searchInput:focus {
+  outline: 2px solid var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-wrap {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+#episodeSelect,
+#searchInput {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 14px;
+}
+
+#episodeSelect {
+  max-width: 280px;
+  cursor: pointer;
+}
+
+#searchCount {
+  width: 100%;
+  margin-top: 10px;
 }
