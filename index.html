@@ -3,20 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Asha Ahmed (ashaahmed7)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>TV Show Episode Guide</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <h1 class="main-title">TV Show Episodes</h1>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="main-title">TV Show Episode Guide</h1>
+        <div class="search-wrap">
+          <select id="episodeSelect">
+            <option value="ALL">Show all episodes</option>
+          </select>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search episodes..."
+            aria-label="Search"
+          />
+          <p id="searchCount" class="subtitle"></p>
+        </div>
+      </div>
+    </header>
 
-    <div id="root"></div>
+    <main class="container">
+      <section id="episodeGrid" class="episode-grid"></section>
+    </main>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <template id="episodeCardTemplate">
+      <article class="episode-card">
+        <div class="thumb-wrap">
+          <img class="thumb" loading="lazy" />
+          <div class="thumb placeholder" role="img">No image</div>
+        </div>
+        <div class="episode-content">
+          <div class="episode-meta">
+            <span class="badge"></span>
+            <h2 class="episode-title"></h2>
+          </div>
+          <p class="episode-submeta">
+            <strong>Season:</strong> <span class="season-num"></span> &nbsp;
+            <strong>Episode:</strong> <span class="episode-num"></span>
+          </p>
+          <div class="episode-summary"></div>
+          <div class="episode-links">
+            <a class="link-chip" target="_blank" rel="noopener noreferrer"
+              >View on TVMaze</a
+            >
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          Data originally from
+          <a href="https://tvmaze.com" target="_blank">TVMaze.com</a>
+        </p>
+      </div>
+    </footer>
+
     <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
 </html>

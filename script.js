@@ -37,105 +37,90 @@ function escapeAttr(str) {
 }
 
 function createEpisodeCard(ep) {
-  // Requirement #2: name, season, episode number, medium image, summary
-  const name = ep.name ?? "Untitled episode";
-  const season = ep.season ?? 0;
-  const number = ep.number ?? 0;
+  const template = document.getElementById("episodeCardTemplate");
+  const clone = template.content.cloneNode(true);
+  const card = clone.querySelector(".episode-card");
 
-  const code = formatEpisodeCode(season, number);
+  const code = formatEpisodeCode(ep.season, ep.number);
 
-  // Requirement #2.4: medium-sized image for the episode (TVMaze provides image.medium when available) [1](https://www.tvmaze.com/api)
-  const imgUrl = ep.image?.medium || "";
-  const imgAlt = `${name} (${code})`;
+  // Fill text data
+  card.querySelector(".badge").textContent = code;
+  card.querySelector(".episode-title").textContent = ep.name;
+  card.querySelector(".season-num").textContent = ep.season;
+  card.querySelector(".episode-num").textContent = ep.number;
 
-  // Requirement #4: link back to TVMaze (API provides episode.url we can link to) [1](https://www.tvmaze.com/api)
-  const tvmazeUrl = ep.url || "https://www.tvmaze.com/";
+  // Episode Summary
+  card.querySelector(".episode-summary").innerHTML =
+    ep.summary || "<p>No summary available.</p>";
 
-  const summaryHtml = normaliseSummary(ep.summary);
+  // Episode Image
+  const img = card.querySelector(".thumb");
+  const placeholder = card.querySelector(".placeholder");
+  if (ep.image?.medium) {
+    img.src = ep.image.medium;
+    img.alt = `${ep.name} (${code})`;
+    placeholder.remove();
+  } else {
+    img.remove();
+  }
 
-  const card = document.createElement("article");
-  card.className = "episode-card";
-
-  card.innerHTML = `
-    <div class="thumb-wrap">
-      ${
-        imgUrl
-          ? `<img class="thumb" src="${escapeAttr(imgUrl)}" alt="${escapeAttr(
-              imgAlt,
-            )}" loading="lazy" />`
-          : `<div class="thumb placeholder" role="img" aria-label="No image available">No image</div>`
-      }
-    </div>
-
-    <div class="episode-content">
-      <div class="episode-meta">
-        <span class="badge">${code}</span>
-        <h2 class="episode-title">${escapeHtml(name)}</h2>
-      </div>
-
-      <p class="episode-submeta">
-        <strong>Season:</strong> ${season}
-        &nbsp; <strong>Episode:</strong> ${number}
-      </p>
-
-      <div class="episode-summary">
-        ${summaryHtml}
-      </div>
-
-      <div class="episode-links">
-        <a class="link-chip" href="${escapeAttr(tvmazeUrl)}" target="_blank" rel="noopener noreferrer">
-          View this episode on TVMaze
-        </a>
-      </div>
-    </div>
-  `;
+  // Handle Link
+  card.querySelector(".link-chip").href = ep.url || "#";
 
   return card;
 }
 
+// Main render
 function renderApp() {
-  const root = document.getElementById("root");
-  if (!root) return;
-
-  // Provided by episodes.js (per your scaffold comment)
-  const episodes = getAllEpisodes();
-
-  // Requirement #1: All episodes must be shown
-  // Render every episode in the array.
-  root.innerHTML = `
-    <header class="site-header">
-      <div class="container">
-        <h1 class="title">TV Show Episode Guide</h1>
-        <p class="subtitle">Showing <strong>${episodes.length}</strong> episodes.</p>
-      </div>
-    </header>
-
-    <main class="container">
-      <section id="episodeGrid" class="episode-grid" aria-label="All episodes"></section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p>
-          Episode data originally comes from
-          <a href="https://www.tvmaze.com/" target="_blank" rel="noopener noreferrer">TVMaze.com</a>.
-        </p>
-        <p class="muted">
-          TVMaze API licensing requires proper credit and link-back:
-          <a href="https://www.tvmaze.com/api#licensing" target="_blank" rel="noopener noreferrer">tvmaze.com/api#licensing</a>.
-        </p>
-      </div>
-    </footer>
-  `;
-
+  const allEpisodes = getAllEpisodes();
+  const searchInput = document.getElementById("searchInput");
+  const episodeSelect = document.getElementById("episodeSelect");
+  const searchCount = document.getElementById("searchCount");
   const grid = document.getElementById("episodeGrid");
+
+  // Populate Dropdown
+  allEpisodes.forEach((ep) => {
+    const option = document.createElement("option");
+    option.value = ep.id;
+    option.textContent = `${formatEpisodeCode(ep.season, ep.number)} - ${ep.name}`;
+    episodeSelect.appendChild(option);
+  });
+
+  const handleChange = () => {
+    updateDisplay(
+      allEpisodes,
+      searchInput.value,
+      episodeSelect.value,
+      grid,
+      searchCount,
+    );
+  };
+
+  searchInput.addEventListener("input", handleChange);
+  episodeSelect.addEventListener("change", handleChange);
+
+  // Initial render
+  handleChange();
+}
+
+// Updating display based on search filters
+function updateDisplay(allEpisodes, term, selectedId, grid, countDisplay) {
+  const searchTerm = term.toLowerCase();
+
+  const filtered = allEpisodes.filter((ep) => {
+    const matchesSelect = selectedId === "ALL" || String(ep.id) === selectedId;
+    const matchesSearch =
+      ep.name.toLowerCase().includes(searchTerm) ||
+      (ep.summary && ep.summary.toLowerCase().includes(searchTerm));
+    return matchesSelect && matchesSearch;
+  });
+
+  grid.innerHTML = "";
   const fragment = document.createDocumentFragment();
-
-  for (const ep of episodes) {
-    fragment.appendChild(createEpisodeCard(ep));
-  }
-
+  filtered.forEach((ep) => fragment.appendChild(createEpisodeCard(ep)));
   grid.appendChild(fragment);
+
+  countDisplay.textContent = `Displaying ${filtered.length}/${allEpisodes.length} episodes`;
 }
 
 renderApp();
