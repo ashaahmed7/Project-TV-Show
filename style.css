@@ -221,11 +221,6 @@ main {
   font-size: 14px;
 }
 
-#searchInput:focus {
-  outline: 2px solid var(--accent);
-  background: rgba(255, 255, 255, 0.1);
-}
-
 .search-wrap {
   margin-top: 15px;
   display: flex;
@@ -240,8 +235,8 @@ main {
   padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
+  color: #000;
+  background-color: #fff;
   font-size: 14px;
 }
 
