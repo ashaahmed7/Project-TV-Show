@@ -1,251 +1,58 @@
-:root {
-  --bg: #0b1220;
-  --panel: rgba(255, 255, 255, 0.06);
-  --text: #e8eefc;
-  --muted: rgba(232, 238, 252, 0.72);
-  --border: rgba(255, 255, 255, 0.12);
-  --accent: #7aa7ff;
-  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  --radius: 18px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
+/* Apply to entire site */
 body {
   margin: 0;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    Arial;
-  color: var(--text);
-  background:
-    radial-gradient(
-      1000px 600px at 15% -10%,
-      rgba(122, 167, 255, 0.25),
-      transparent
-    ),
-    radial-gradient(
-      900px 700px at 85% 0%,
-      rgba(134, 239, 172, 0.12),
-      transparent
-    ),
-    var(--bg);
+  background-color: #165bda;
 }
 
-.main-title {
+/* Center anything */
+.center {
   text-align: center;
-  font-size: 60px;
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-.container {
-  width: min(1100px, calc(100% - 32px));
-  margin: 0 auto;
-}
-
-.site-header {
-  text-align: center;
-  padding: 26px 0 14px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(8px);
-}
-
-.title {
-  text-align: center;
-  font-size: 26px;
-}
-
-.subtitle {
-  margin: 0 0 6px;
-  color: var(--muted);
-}
-
-main {
-  padding: 18px 0 28px;
-}
-
-.episode-grid {
+/* Container for all episode card */
+.ep-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.episode-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  height: 100%;
-}
-
-@media (max-width: 640px) {
-  .episode-card {
-    grid-template-columns: 1fr;
-  }
-}
-
-.thumb-wrap {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.placeholder {
-  display: grid;
-  place-items: center;
-  min-height: 190px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.episode-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.episode-meta {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: 10px;
+  margin: auto;
+  width: 80%;
   gap: 10px;
-  align-items: baseline;
-  margin-bottom: 6px;
+  margin-bottom: 70px;
 }
 
-.badge {
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    monospace;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.22);
+/* Each episode card */
+.ep-section {
+  border-radius: 10px;
+  background-color: #0d2148;
+  color: white;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.5),
+    0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
-.episode-title {
-  margin: 0;
-  font-size: 18px;
+.ep-section:hover {
+  transform: scale(1.025);
 }
 
-.episode-submeta {
-  margin: 8px 0 0;
-  color: var(--muted);
+/* Image inside each episode card */
+.ep-section img {
+  border-radius: 10px;
+  width: 100%;
 }
 
-.episode-summary {
-  margin-top: 10px;
-  color: var(--muted);
-  line-height: 1.55;
+/* Affect the title and summary only */
+.ep-title,
+.ep-summary {
+  padding: 10px;
 }
 
-.episode-summary p {
-  margin: 0 0 10px;
-}
-.episode-summary p:last-child {
-  margin-bottom: 0;
-}
-
-.episode-links {
-  margin-top: auto;
-  padding-top: 15px;
-}
-
-.link-chip {
-  font-size: 13px;
-  padding: 7px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.18);
-}
-
-.link-chip:hover {
-  background: rgba(0, 0, 0, 0.28);
-}
-
-.site-footer {
-  padding: 18px 0;
-  border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.8);
-  color: var(--muted);
+/* Footer */
+footer {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-}
-
-.muted {
-  color: var(--muted);
-}
-
-/* Style for search bar: */
-.search-wrap {
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-#episodeSelect,
-#searchInput {
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  font-size: 14px;
-}
-
-.search-wrap {
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-#episodeSelect,
-#searchInput {
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  color: #000;
-  background-color: #fff;
-  font-size: 14px;
-}
-
-#episodeSelect {
-  max-width: 280px;
-  cursor: pointer;
-}
-
-#searchCount {
-  width: 100%;
-  margin-top: 10px;
+  border-top: solid 1px black;
+  background-color: #0d2148;
+  color: white;
 }
