@@ -1,7 +1,32 @@
+/* ROOT THEME (my design) */
+:root {
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.06);
+  --text: #e8eefc;
+  --muted: rgba(232, 238, 252, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #7aa7ff;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
+}
+
 /* Apply to entire site */
 body {
-  margin: 0;
-  background-color: #165bda;
+  argin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial;
+  color: var(--text);
+  background:
+    radial-gradient(
+      600px 300px at 20% -10%,
+      rgba(122, 167, 255, 0.05),
+      transparent
+    ),
+    var(--bg);
 }
 
 /* Center anything */
@@ -9,41 +34,73 @@ body {
   text-align: center;
 }
 
+/* Header / Controls */
+header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.search-wrap {
+  margin-top: 10px;
+}
+
+.search-wrap input,
+.search-wrap select {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: whitesmoke;
+  color: black(--text);
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
 /* Container for all episode card */
 .ep-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  padding: 10px;
-  margin: auto;
-  width: 80%;
-  gap: 10px;
-  margin-bottom: 70px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  width: min(1100px, 90%);
+  margin: 20px auto 80px;
 }
 
 /* Each episode card */
 .ep-section {
-  border-radius: 10px;
-  background-color: #0d2148;
-  color: white;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.5),
-    0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease;
 }
 
 .ep-section:hover {
-  transform: scale(1.025);
+  transform: scale(1.02);
 }
 
 /* Image inside each episode card */
 .ep-section img {
-  border-radius: 10px;
   width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
 }
 
 /* Affect the title and summary only */
-.ep-title,
-.ep-summary {
+.ep-title {
   padding: 10px;
+  margin: 0;
+  font-size: 18px;
+}
+.ep-summary {
+  padding: 0 10px 12px;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 /* Footer */
