@@ -3,67 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Asha Ahmed (ashaahmed7)</title>
+    <title>Asha Ahmed (ashaahmed7)</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="./script.js" defer></script>
   </head>
+
   <body>
-    <header class="site-header">
-      <div class="container">
-        <h1 class="main-title">TV Show Episode Guide</h1>
-        <div class="search-wrap">
-          <select id="episodeSelect">
-            <option value="ALL">Show all episodes</option>
-          </select>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search episodes..."
-            aria-label="Search"
-          />
-          <p id="searchCount" class="subtitle"></p>
-        </div>
+    <!-- Header = Title + Search filters -->
+    <header class="center">
+      <h1>TV Show Episode Guide</h1>
+      <div class="search-wrap">
+        <select id="show-select"></select>
+        <select id="ep-select">
+          <option value="all-episodes">Show all episodes</option>
+        </select>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search episodes..."
+          aria-label="Search"
+        />
+        <p id="ep-count" class="subtitle"></p>
       </div>
     </header>
 
-    <main class="container">
-      <section id="episodeGrid" class="episode-grid"></section>
+    <hr style="width: 90%" />
+
+    <!-- Main = All episodes card layout -->
+    <main>
+      <div class="ep-container">
+        <template id="ep-card">
+          <section class="ep-section">
+            <img class="ep-img" />
+            <h3 class="ep-title"></h3>
+            <p class="ep-summary"></p>
+          </section>
+        </template>
+      </div>
     </main>
 
-    <template id="episodeCardTemplate">
-      <article class="episode-card">
-        <div class="thumb-wrap">
-          <img class="thumb" loading="lazy" />
-          <div class="thumb placeholder" role="img">No image</div>
-        </div>
-        <div class="episode-content">
-          <div class="episode-meta">
-            <span class="badge"></span>
-            <h2 class="episode-title"></h2>
-          </div>
-          <p class="episode-submeta">
-            <strong>Season:</strong> <span class="season-num"></span> &nbsp;
-            <strong>Episode:</strong> <span class="episode-num"></span>
-          </p>
-          <div class="episode-summary"></div>
-          <div class="episode-links">
-            <a class="link-chip" target="_blank" rel="noopener noreferrer"
-              >View on TVMaze</a
-            >
-          </div>
-        </div>
-      </article>
-    </template>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p>
-          Data originally from
-          <a href="https://tvmaze.com" target="_blank">TVMaze.com</a>
-        </p>
-      </div>
+    <!-- Footer = TVMaze mention here -->
+    <footer class="center">
+      <p>Data originally from TVMaze.com</p>
     </footer>
-
-    <script src="episodes.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>
