@@ -1,52 +1,248 @@
-/* Apply to entire site */
-body {
-  margin: 0;
-  background-color: #165bda;
+/* ROOT THEME (my design) */
+:root {
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.06);
+  --text: #e8eefc;
+  --muted: rgba(232, 238, 252, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #7aa7ff;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
 }
 
-/* Center anything */
+/* ── BASE ────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial;
+  color: var(--text);
+  background:
+    radial-gradient(
+      600px 300px at 20% -10%,
+      rgba(122, 167, 255, 0.05),
+      transparent
+    ),
+    var(--bg);
+}
+
 .center {
   text-align: center;
 }
 
-/* Container for all episode card */
+/* ── HEADER (shared by both views) ──────────────────────── */
+header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* Episodes view: back button + title side-by-side */
+.ep-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.ep-header-top h1 {
+  margin: 0;
+}
+
+#back-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#back-btn:hover {
+  background: rgba(122, 167, 255, 0.18);
+}
+
+/* Search controls */
+.search-wrap {
+  margin-top: 10px;
+}
+
+.search-wrap input,
+.search-wrap select {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: whitesmoke;
+  color: #111;
+}
+
+/* Wider box for the show search */
+#show-search-input {
+  width: min(500px, 80vw);
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+/* ── SHOWS GRID ──────────────────────────────────────────── */
+#shows-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: min(1200px, 92%);
+  margin: 28px auto 100px;
+}
+
+.show-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.show-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.show-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.show-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* Clickable show name */
+.show-card-name {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1.3;
+  transition: opacity 0.15s;
+}
+.show-card-name:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+/* Badge row */
+.show-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.badge-status {
+  background: rgba(122, 167, 255, 0.15);
+  color: #a8c8ff;
+}
+.badge-rating {
+  background: rgba(255, 200, 60, 0.15);
+  color: #ffd060;
+  border-color: rgba(255, 200, 60, 0.3);
+}
+.badge-runtime {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--muted);
+}
+.badge-genre {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+}
+
+.show-card-summary {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+  /* clamp to 3 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+/* ── EPISODES GRID ───────────────────────────────────────── */
 .ep-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  padding: 10px;
-  margin: auto;
-  width: 80%;
-  gap: 10px;
-  margin-bottom: 70px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  width: min(1100px, 90%);
+  margin: 20px auto 80px;
 }
 
-/* Each episode card */
 .ep-section {
-  border-radius: 10px;
-  background-color: #0d2148;
-  color: white;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.5),
-    0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease;
 }
-
 .ep-section:hover {
-  transform: scale(1.025);
+  transform: scale(1.02);
 }
 
-/* Image inside each episode card */
 .ep-section img {
-  border-radius: 10px;
   width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
 }
 
-/* Affect the title and summary only */
-.ep-title,
-.ep-summary {
+.ep-title {
   padding: 10px;
+  margin: 0;
+  font-size: 18px;
 }
 
-/* Footer */
+.ep-summary {
+  padding: 0 10px 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
 footer {
   position: fixed;
   bottom: 0;
@@ -55,4 +251,5 @@ footer {
   border-top: solid 1px black;
   background-color: #0d2148;
   color: white;
+  padding: 8px 0;
 }
