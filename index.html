@@ -9,42 +9,73 @@
   </head>
 
   <body>
-    <!-- Header = Title + Search filters -->
-    <header class="center">
-      <h1>TV Show Episode Guide</h1>
-      <div class="search-wrap">
-        <select id="show-select"></select>
-        <select id="ep-select">
-          <option value="all-episodes">Show all episodes</option>
-        </select>
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search episodes..."
-          aria-label="Search"
-        />
-        <p id="ep-count" class="subtitle"></p>
-      </div>
-    </header>
+    <!-- =====================================================
+         SHOWS LISTING VIEW  (visible on load)
+    ====================================================== -->
+    <div id="shows-view">
+      <header class="center">
+        <h1>TV Show Episode Guide</h1>
+        <div class="search-wrap">
+          <input
+            type="text"
+            id="show-search-input"
+            placeholder="Search shows by name, genre or summary..."
+            aria-label="Search shows"
+          />
+          <p id="show-count" class="subtitle"></p>
+        </div>
+      </header>
 
-    <hr style="width: 90%" />
+      <hr style="width: 90%" />
 
-    <!-- Main = All episodes card layout -->
-    <main>
-      <div class="ep-container">
-        <template id="ep-card">
-          <section class="ep-section">
-            <img class="ep-img" />
-            <h3 class="ep-title"></h3>
-            <p class="ep-summary"></p>
-          </section>
-        </template>
-      </div>
-    </main>
+      <main id="shows-container"></main>
 
-    <!-- Footer = TVMaze mention here -->
-    <footer class="center">
-      <p>Data originally from TVMaze.com</p>
-    </footer>
+      <footer class="center">
+        <p>Data originally from TVMaze.com</p>
+      </footer>
+    </div>
+
+    <!-- =====================================================
+         EPISODES VIEW  (hidden on load — inline style is
+         the source of truth, JS toggles it)
+    ====================================================== -->
+    <div id="episodes-view" style="display: none">
+      <header class="center">
+        <div class="ep-header-top">
+          <button id="back-btn">← Back to Shows</button>
+          <h1 id="current-show-title"></h1>
+        </div>
+        <div class="search-wrap">
+          <select id="ep-select">
+            <option value="all-episodes">Show all episodes</option>
+          </select>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search episodes..."
+            aria-label="Search episodes"
+          />
+          <p id="ep-count" class="subtitle"></p>
+        </div>
+      </header>
+
+      <hr style="width: 90%" />
+
+      <main>
+        <div class="ep-container">
+          <template id="ep-card">
+            <section class="ep-section">
+              <img class="ep-img" alt="" />
+              <h3 class="ep-title"></h3>
+              <p class="ep-summary"></p>
+            </section>
+          </template>
+        </div>
+      </main>
+
+      <footer class="center">
+        <p>Data originally from TVMaze.com</p>
+      </footer>
+    </div>
   </body>
 </html>
